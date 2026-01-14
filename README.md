@@ -40,16 +40,15 @@ ATS ANALYZER/
 ├── server.js           # Express.js entry point & API orchestration
 └── .env.example        # Reference for required secrets
 
-## 🛠️ Tech Stack
+🛠️ Tech Stack
 - **Backend:** Node.js, Express.js
 - **AI Engine:** Google Gemini API
 - **Email Service:** Brevo (formerly Sendinblue) API
 - **Frontend:** HTML5, CSS3, JavaScript (Vanilla)
 
-## 🚀 Getting Started
+🚀 Getting Started
 
-### 1. Clone the Repo
-```bash
+1. Clone the Repo
 git clone [https://github.com/Santhu-017/SkillSync.git](https://github.com/Santhu-017/SkillSync.git)
 cd SkillSync
 
