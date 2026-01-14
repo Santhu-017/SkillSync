@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candidate Shortlist - SkillSync</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container header-content">
+            <div class="logo">
+                <img src="images/logo.svg" alt="SkillSync logo" style="height:28px; margin-right:8px;" />
+                <span>SkillSync</span>
+            </div>
+            <nav class="nav">
+                <a href="index.html" class="nav-item">Home</a>
+                <a href="upload.html" class="nav-item">Analyze New</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="results-page">
+        <div class="container" id="resultsContainer">
+            
+            <div class="results-header-actions">
+                 <h1 class="results-heading">Candidate Shortlist</h1>
+                 <button id="exportCsvButton" class="btn btn-secondary btn-sm">Export to CSV</button>
+            </div>
+            
+            <p class="results-subheading">
+                Here are the analysis results. Sort by score or name, and use the filters to narrow your search.
+            </p>
+
+            <div id="noResults" style="display: none; text-align: center; padding: 40px; background: #fff; border-radius: 12px; box-shadow: var(--shadow);">
+                <h2>No Analysis Data Found</h2>
+                <p>Please upload resumes and a job description to see your results.</p>
+                <a href="upload.html" class="btn btn-primary" style="margin-top: 20px;">Analyze Now</a>
+            </div>
+
+            <div class="filter-bar" id="filterBar" style="display: none;">
+                <input type="text" id="filterKeyword" placeholder="Search by name, email, or skill...">
+                <input type="text" id="filterRequiredSkills" placeholder="Required skills (comma-separated)">
+                <select id="filterEligibility">
+                    <option value="all">All Eligibility</option>
+                    <option value="Eligible">Eligible</option>
+                    <option value="Potential Fit">Potential Fit</option>
+                    <option value="Not a Fit">Not a Fit</option>
+                    <option value="Error">Error</option>
+                </select>
+                <div class="filter-score">
+                    <label for="filterScore">Min Score: <strong id="filterScoreValue">0</strong>%</label>
+                    <input type="range" id="filterScore" min="0" max="100" value="0">
+                </div>
+            </div>
+
+            <div class="results-table-container" id="resultsContent">
+                <table class="results-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th class="sortable" data-sort="name" data-sort-dir="asc">Candidate Details <span></span></th>
+                            <th class="sortable" data-sort="score" data-sort-dir="desc">ATS Score <span></span></th>
+                            <th>Eligibility</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="resultsTableBody">
+                        </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <div id="detailsModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2 id="modalCandidateName"></h2>
+
+            <div class="modal-section">
+                <h4><span class="section-icon">⚠️</span>Missing Keywords</h4>
+                <p class="section-description">Keywords from the job description that are missing in the resume.</p>
+                <div id="modalMissingKeywords" class="pills-container"></div>
+            </div>
+
+            <div class="modal-section">
+                <h4><span class="section-icon">✅</span>Found Keywords</h4>
+                <p class="section-description">Keywords from the job description that were successfully found.</p>
+                <div id="modalFoundKeywords" class="pills-container"></div>
+            </div>
+
+            <div class="modal-section">
+                <h4><span class="section-icon">🔧</span>Skills</h4>
+                <p class="section-description">Technical skills extracted from the resume.</p>
+                <div id="modalSkills" class="pills-container"></div>
+            </div>
+            
+            <div class="modal-section">
+                <h4><span class="section-icon">🤝</span>Soft Skills</h4>
+                <p class="section-description">Soft skills identified in the resume.</p>
+                <div id="modalSoftSkills" class="pills-container"></div>
+            </div>
+
+            <div class="modal-section">
+                <h4><span class="section-icon">🎓</span>Education</h4>
+                 <p class="section-description">Educational background from the resume.</p>
+                <ul id="modalEducation" class="details-list"></ul>
+            </div>
+            
+            <div class="modal-section">
+                <h4><span class="section-icon">💼</span>Work Experience</h4>
+                 <p class="section-description">Professional experience listed in the resume.</p>
+                <ul id="modalExperience" class="details-list"></ul>
+            </div>
+
+            <div class="modal-section">
+                <h4><span class="section-icon">📊</span>Eligibility Score</h4>
+                <p class="section-description">Overall eligibility score computed from skills, experience, education, certifications, and location.</p>
+                <div id="modalEligibilityScore" class="eligibility-score">N/A</div>
+            </div>
+
+            <div class="modal-section">
+                <h4><span class="section-icon">🧾</span>Eligibility Breakdown</h4>
+                <p class="section-description">Detailed scoring breakdown used to compute the eligibility score.</p>
+                <ul id="modalEligibilityBreakdown" class="details-list"></ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Compose Modal for sending email -->
+    <div id="composeModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="compose-close close-button">&times;</span>
+            <h2 id="composeTitle">Send Shortlist Email</h2>
+
+            <div style="margin-bottom: 12px; display:flex; gap:8px; align-items:center;">
+                <button id="generateFromResumeBtn" class="btn btn-secondary">Generate from Resume</button>
+                <button id="writeEmailBtn" class="btn btn-secondary">Write Email</button>
+            </div>
+
+            <div style="margin-bottom:8px;">
+                <label for="composeTo">To</label>
+                <input id="composeTo" type="email" placeholder="recipient@example.com" style="width:100%; padding:8px; margin-top:4px;" />
+            </div>
+
+            <div style="margin-bottom:8px;">
+                <label for="composeSubject">Subject</label>
+                <input id="composeSubject" type="text" style="width:100%; padding:8px; margin-top:4px;" />
+            </div>
+
+            <div style="margin-bottom:12px;">
+                <label for="composeBody">Message</label>
+                <textarea id="composeBody" rows="8" style="width:100%; padding:8px; margin-top:4px;"></textarea>
+            </div>
+
+            <div style="text-align:right;">
+                <button id="composeCancel" class="btn btn-secondary">Cancel</button>
+                <button id="composeSend" class="btn btn-primary">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content-wrapper">
+            <div class="container">
+                <div class="footer-grid">
+                    <!-- About Section -->
+                    <div class="footer-section">
+                        <h4>About SkillSync</h4>
+                        <p>AI-powered resume screening and candidate shortlisting platform designed to streamline your hiring process with intelligent matching.</p>
+                    </div>
+
+                    <!-- Features Section -->
+                    <div class="footer-section">
+                        <h4>Features</h4>
+                        <ul>
+                            <li><a href="#features">Intelligent Matching</a></li>
+                            <li><a href="#features">Batch Processing</a></li>
+                            <li><a href="#features">Advanced Filtering</a></li>
+                            <li><a href="#features">Email Integration</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Company Section -->
+                    <div class="footer-section">
+                        <h4>Company</h4>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="upload.html">Analyze Candidates</a></li>
+                            <li><a href="#">Contact Us</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Contact Section -->
+                    <div class="footer-section">
+                        <h4>Contact</h4>
+                        <ul>
+                            <li><i data-feather="user" class="footer-icon"></i> Santhosh A S</li>
+                            <li><i data-feather="user" class="footer-icon"></i> S M Prajwal</li>
+                            <li><i data-feather="mail" class="footer-icon"></i> <a href="mailto:santhoshsanthu01715@gmail.com">santhoshsanthu01715@gmail.com</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <div class="container footer-bottom-content">
+                    <p>&copy; 2025 SkillSync. All Rights Reserved.</p>
+                    <p>Developed by <strong>Santhosh A S</strong></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="results.js"></script>
+</body>
+</html>

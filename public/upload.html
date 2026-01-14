@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Resumes - SkillSync</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container header-content">
+            <div class="logo">
+                <img src="images/logo.svg" alt="SkillSync logo" style="height:50px; width: 60px; margin-right:15px;" />
+                <span>SkillSync</span>
+            </div>
+            <nav class="nav">
+                <a href="index.html" class="nav-item">Home</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="upload-section">
+        <div class="upload-content">
+            <div class="upload-header">
+                <div class="header-badge">Advanced Resume Analysis</div>
+                <h1>AI-Powered Candidate Screening</h1>
+                <p class="upload-description">
+                    Upload resumes, paste job details, and let our intelligent engine instantly rank candidates. Advanced filtering available for precision shortlisting.
+                </p>
+            </div>
+
+            <form id="analysisForm" class="analysis-form-modern">
+                <div class="form-grid">
+                    <!-- Step 1: Resume Upload -->
+                    <div class="form-section primary-section active" data-step="1">
+                        <div class="section-header">
+                            <h2>Step 1: Upload Resumes</h2>
+                            <span class="step-indicator">Multiple files supported</span>
+                        </div>
+                        
+                        <div class="upload-box-modern" role="button" tabindex="0" aria-labelledby="drag-text">
+                            <div class="upload-icon-wrapper-modern">
+                                <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-upload"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                            </div>
+                            <p class="drag-text" id="drag-text">Drag & drop or click to browse</p>
+                            <input type="file" id="fileInput" name="resumeFiles" accept=".pdf,.doc,.docx" style="display: none;" multiple>
+                            <p class="file-types">PDF, DOC, DOCX • Max 5MB per file</p>
+                            
+                            <ul id="fileList" class="file-list-display"></ul>
+                        </div>
+                        
+                        <div class="form-action">
+                            <button type="button" class="btn btn-next btn-next-step-1">Next Step →</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Job Description -->
+                    <div class="form-section secondary-section" data-step="2">
+                        <div class="section-header">
+                            <h2>Step 2: Job Details</h2>
+                            <span class="step-indicator">Be specific for better results</span>
+                        </div>
+
+                        <div class="job-description-box-modern">
+                            <label for="jobDescription">
+                                <span class="label-icon">📋</span>
+                                Paste Job Description
+                            </label>
+                            <textarea id="jobDescription" name="jobDescription" rows="8" placeholder="Paste responsibilities, requirements, skills, experience level, education, and qualifications..." required></textarea>
+                        </div>
+                        
+                        <div class="form-action">
+                            <button type="button" class="btn-back btn-back-step-2">← Back</button>
+                            <button type="button" class="btn btn-next btn-next-step-2">Next Step →</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Optional Filters -->
+                <div class="filters-section-modern" data-step="3">
+                    <div class="section-header">
+                        <h3>Step 3: Optional Filters</h3>
+                        <span class="step-indicator">Fine-tune your search</span>
+                    </div>
+
+                    <div class="filters-grid">
+                        <div class="filter-item">
+                            <label for="filterMinScore">Minimum Match Score</label>
+                            <div class="filter-input-group">
+                                <input type="range" id="filterMinScore" name="filterMinScore" min="0" max="100" value="0">
+                                <span class="score-display" id="minScoreVal">0%</span>
+                            </div>
+                        </div>
+
+                        <div class="filter-item">
+                            <label for="filterExperience">Experience Level</label>
+                            <select id="filterExperience" name="filterExperience">
+                                <option value="any">Any Level</option>
+                                <option value="junior">Junior (0-2 years)</option>
+                                <option value="mid">Mid-level (3-6 years)</option>
+                                <option value="senior">Senior (7+ years)</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-item">
+                            <label for="filterLocation">Location</label>
+                            <input type="text" id="filterLocation" name="filterLocation" placeholder="e.g., Remote, NYC, Bangalore">
+                        </div>
+
+                        <div class="filter-item">
+                            <label for="filterMinEducation">Education</label>
+                            <select id="filterMinEducation" name="filterMinEducation">
+                                <option value="any">Any</option>
+                                <option value="bachelor">Bachelor's Degree</option>
+                                <option value="master">Master's Degree</option>
+                                <option value="phd">PhD</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-item full-width">
+                            <label for="filterRequiredSkills">Must-Have Skills (comma-separated)</label>
+                            <input type="text" id="filterRequiredSkills" name="filterRequiredSkills" placeholder="e.g., Python, AWS, React">
+                        </div>
+
+                        <div class="filter-item full-width">
+                            <label for="filterRequiredCerts">Preferred Certifications</label>
+                            <input type="text" id="filterRequiredCerts" name="filterRequiredCerts" placeholder="e.g., AWS Solutions Architect, PMP">
+                        </div>
+
+                        <div class="filter-item full-width">
+                            <label for="filterPreferredKeywords">Preferred Keywords</label>
+                            <input type="text" id="filterPreferredKeywords" name="filterPreferredKeywords" placeholder="e.g., Leadership, Agile, Kubernetes">
+                        </div>
+
+                        <div class="filter-item full-width">
+                            <label for="filterBlacklist">Exclude Keywords (Disqualifying)</label>
+                            <input type="text" id="filterBlacklist" name="filterBlacklist" placeholder="e.g., 'intern', 'contract only'">
+                        </div>
+                    </div>
+                    
+                    <div class="form-action">
+                        <button type="button" class="btn-back btn-back-step-3">← Back</button>
+                        <button type="submit" class="btn btn-primary btn-large pulse-button" id="analyzeButton">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+                            Start Analysis
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+            <div id="loader" class="loader-modern" style="display: none;">
+                <div class="loader-content">
+                    <div class="spinner-modern"></div>
+                    <p>✨ Analyzing resumes with AI intelligence...</p>
+                    <span class="loader-subtext">This usually takes 10-30 seconds</span>
+                </div>
+            </div>
+            <p id="errorMessage" class="error-message"></p>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content-wrapper">
+            <div class="container">
+                <div class="footer-grid">
+                    <!-- About Section -->
+                    <div class="footer-section">
+                        <h4>About SkillSync</h4>
+                        <p>AI-powered resume screening and candidate shortlisting platform designed to streamline your hiring process with intelligent matching.</p>
+                    </div>
+
+                    <!-- Features Section -->
+                    <div class="footer-section">
+                        <h4>Features</h4>
+                        <ul>
+                            <li><a href="#features">Intelligent Matching</a></li>
+                            <li><a href="#features">Batch Processing</a></li>
+                            <li><a href="#features">Advanced Filtering</a></li>
+                            <li><a href="#features">Email Integration</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Company Section -->
+                    <div class="footer-section">
+                        <h4>Company</h4>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="upload.html">Analyze Candidates</a></li>
+                            <li><a href="#">Contact Us</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Contact Section -->
+                    <div class="footer-section">
+                        <h4>Contact</h4>
+                        <ul>
+                            <li><i data-feather="user" class="footer-icon"></i> Santhosh A S</li>
+                            <li><i data-feather="user" class="footer-icon"></i> S M Prajwal</li>
+                            <li><i data-feather="mail" class="footer-icon"></i> <a href="mailto:santhoshsanthu01715@gmail.com">santhoshsanthu01715@gmail.com</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <div class="container footer-bottom-content">
+                    <p>&copy; 2025 SkillSync. All Rights Reserved.</p>
+                    <p>Developed by <strong>Santhosh A S</strong></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+    
+    <script>
+        // Multi-Step Form Wizard
+        let currentStep = 1;
+        const totalSteps = 3;
+        const fileInput = document.getElementById('fileInput');
+        const jobDescription = document.getElementById('jobDescription');
+        
+        // Validate Step 1
+        function isStep1Valid() {
+            const fileList = document.getElementById('fileList');
+            return fileList.children.length > 0;
+        }
+
+        // Validate Step 2
+        function isStep2Valid() {
+            return jobDescription.value.trim().length > 20;
+        }
+
+        // Get step section by step number
+        function getStepSection(step) {
+            const sections = document.querySelectorAll('.form-section, .filters-section-modern');
+            let count = 0;
+            for (let section of sections) {
+                if (section.dataset.step) {
+                    count++;
+                    if (count === step) return section;
+                }
+            }
+            return null;
+        }
+
+        // Show step
+        function showStep(step) {
+            const allSections = document.querySelectorAll('.form-section, .filters-section-modern');
+            allSections.forEach(section => {
+                section.classList.remove('active');
+                section.classList.remove('completed');
+            });
+            const section = getStepSection(step);
+            if (section) {
+                section.classList.add('active');
+            }
+            currentStep = step;
+        }
+
+        // Mark step as completed
+        function markStepComplete(step) {
+            const section = getStepSection(step);
+            if (section) {
+                section.classList.add('completed');
+            }
+        }
+
+        // Next Step button handlers
+        document.querySelector('.btn-next-step-1').addEventListener('click', function() {
+            if (isStep1Valid()) {
+                markStepComplete(1);
+                showStep(2);
+            } else {
+                alert('Please upload at least one resume to continue.');
+            }
+        });
+
+        document.querySelector('.btn-next-step-2').addEventListener('click', function() {
+            if (isStep2Valid()) {
+                markStepComplete(2);
+                showStep(3);
+            } else {
+                alert('Please fill in a job description (at least 20 characters) to continue.');
+            }
+        });
+
+        // Back button handlers
+        document.querySelector('.btn-back-step-2').addEventListener('click', function() {
+            showStep(1);
+        });
+
+        document.querySelector('.btn-back-step-3').addEventListener('click', function() {
+            showStep(2);
+        });
+
+        // Hide Step 2 & 3 on page load
+        window.addEventListener('load', function() {
+            showStep(1);
+        });
+
+        // Hide header on scroll down, show on scroll up
+        let lastScrollTop = 0;
+        const header = document.querySelector('.header');
+
+        window.addEventListener('scroll', function() {
+            let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (currentScroll > lastScrollTop && currentScroll > 100) {
+                // Scrolling DOWN
+                header.classList.add('hidden');
+            } else {
+                // Scrolling UP
+                header.classList.remove('hidden');
+            }
+            
+            lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+        });
+    </script>
+</body>
+</html>

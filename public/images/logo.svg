@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="48" height="48" role="img" aria-label="SkillSync logo">
+  <title>SkillSync</title>
+  <defs>
+    <linearGradient id="g1" x1="0%" x2="100%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="#2bb673"/>
+      <stop offset="60%" stop-color="#0b7fa6"/>
+    </linearGradient>
+    <filter id="f1" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#000" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <!-- outer head silhouette -->
+  <path d="M60,30 C85,10 135,10 150,40 C165,70 150,110 140,130 C130,150 110,170 75,165 C50,162 40,140 40,120 C38,100 45,70 60,55"
+        fill="none" stroke="url(#g1)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" filter="url(#f1)"/>
+
+  <!-- network lines inside head -->
+  <g stroke="url(#g1)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="70" y1="60" x2="95" y2="75" />
+    <line x1="95" y1="75" x2="120" y2="60" />
+    <line x1="85" y1="90" x2="110" y2="95" />
+    <line x1="110" y1="95" x2="135" y2="85" />
+    <line x1="95" y1="75" x2="95" y2="105" />
+    <line x1="75" y1="120" x2="95" y2="105" />
+    <line x1="120" y1="60" x2="140" y2="80" />
+  </g>
+
+  <!-- network nodes -->
+  <g fill="#0b7fa6">
+    <circle cx="70" cy="60" r="6" />
+    <circle cx="95" cy="75" r="7" />
+    <circle cx="120" cy="60" r="5" />
+    <circle cx="85" cy="90" r="5" />
+    <circle cx="110" cy="95" r="6" />
+    <circle cx="135" cy="85" r="5" />
+    <circle cx="140" cy="80" r="5" />
+    <circle cx="95" cy="105" r="4" />
+    <circle cx="75" cy="120" r="5" />
+  </g>
+
+  <!-- stylized 'S' path formed by connections (slightly thicker, lighter stroke) -->
+  <path d="M78,62 C92,72 108,70 120,78 C132,86 120,100 100,108 C85,114 75,128 95,138"
+        fill="none" stroke="#84d19b" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="0.95"/>
+
+</svg>
