@@ -41,10 +41,10 @@ ATS ANALYZER/
 └── .env.example        # Reference for required secrets
 
 🛠️ Tech Stack
-- **Backend:** Node.js, Express.js
-- **AI Engine:** Google Gemini API
-- **Email Service:** Brevo (formerly Sendinblue) API
-- **Frontend:** HTML5, CSS3, JavaScript (Vanilla)
+- Backend: Node.js, Express.js
+- AI Engine: Google Gemini API
+- Email Service: Brevo (formerly Sendinblue) API
+- Frontend: HTML5, CSS3, JavaScript (Vanilla)
 
 🚀 Getting Started
 
