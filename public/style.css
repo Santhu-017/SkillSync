@@ -2418,3 +2418,230 @@ ul {
     background-color: var(--primary-color);
     color: white;
 }
+
+
+/* --- MOBILE RESPONSIVENESS (Below 768px) --- */
+@media (max-width: 1024px) {
+    .container {
+        max-width: 95%;
+    }
+    .hero-grid {
+        gap: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        overflow-x: hidden;
+    }
+
+    .container {
+        padding: 0 15px;
+    }
+
+    /* Header */
+    .header-content {
+        flex-direction: column; /* Stacks logo and nav */
+        gap: 15px;
+        padding: 5px 0;
+    }
+
+    .nav {
+        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .nav-item {
+        font-size: 0.9rem;
+    }
+
+    /* Hero Section */
+    .landing-hero {
+        padding: 40px 0;
+        text-align: center;
+        min-height: auto;
+    }
+
+    .hero-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .hero-text {
+        order: 2;
+        padding-right: 0;
+        text-align: center;
+    }
+
+    .landing-hero h1 {
+        font-size: 2rem;
+        line-height: 1.3;
+        margin-bottom: 15px;
+    }
+
+    .hero-description {
+        font-size: 1rem;
+        margin-bottom: 30px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .hero-buttons {
+        justify-content: center;
+        flex-direction: column;
+        gap: 15px;
+        padding: 0 20px;
+    }
+
+    .hero-buttons .btn {
+        width: 100%;
+    }
+
+    .hero-image-placeholder {
+        order: 1;
+        height: 250px;
+        margin-bottom: 20px;
+    }
+
+    /* Features & How It Works */
+    .features-grid, .how-it-works-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+
+    /* Upload Section */
+    .upload-section {
+        padding: 40px 0;
+    }
+
+    .upload-section h1 {
+        font-size: 1.8rem;
+    }
+
+    .form-grid {
+        padding: 0;
+    }
+
+    .upload-box-modern {
+        padding: 20px;
+        min-height: 200px;
+    }
+
+    .drag-text {
+        font-size: 1.1rem;
+    }
+
+    /* Steps Indicator - Vertical on Mobile */
+    .steps-indicator {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+        padding: 20px;
+    }
+    
+    .step-item {
+        flex-direction: row;
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .step-connector {
+        display: none;
+    }
+
+    /* Filters */
+    .filter-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .filter-score {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    /* Results Table: Convert to Cards */
+    .results-table, 
+    .results-table thead, 
+    .results-table tbody, 
+    .results-table th, 
+    .results-table td, 
+    .results-table tr {
+        display: block;
+    }
+
+    .results-table thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    .results-table tr {
+        border: 1px solid var(--border-color);
+        margin-bottom: 15px;
+        border-radius: 12px;
+        background: #fff;
+        padding: 15px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .results-table td {
+        border: none;
+        position: relative;
+        padding-left: 0;
+        padding-top: 8px;
+        padding-bottom: 8px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-align: right;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .results-table td:last-child {
+        border-bottom: none;
+    }
+
+    .results-table td:before {
+        content: attr(data-label);
+        font-weight: 700;
+        color: var(--light-text-color);
+        text-align: left;
+        margin-right: 10px;
+        font-size: 0.9rem;
+    }
+
+    .action-buttons {
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+    }
+
+    /* Modal */
+    .modal-content {
+        width: 95%;
+        margin: 10% auto;
+        padding: 20px;
+        max-height: 85vh;
+    }
+
+    /* Footer */
+    .footer-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 40px;
+    }
+
+    .footer-section ul li {
+        justify-content: center;
+    }
+    
+    .footer-bottom-content {
+        flex-direction: column;
+        gap: 10px;
+    }
+}

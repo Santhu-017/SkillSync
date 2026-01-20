@@ -194,27 +194,28 @@ function populateResultsTable(data) {
         const eligibilityClass = getEligibilityClass(candidate.eligibility);
 
         row.innerHTML = `
-            <td>${index + 1}</td>
-            <td>
-                <div class="candidate-name">${candidate.name || 'N/A'}</div>
-                <div class="candidate-email">${candidate.email || 'N/A'}</div>
+            <td data-label="Rank">#${index + 1}</td>
+            <td data-label="Candidate">
+                <div>
+                    <div class="candidate-name">${candidate.name || 'N/A'}</div>
+                    <div class="candidate-email">${candidate.email || 'N/A'}</div>
+                </div>
             </td>
-            <td>
+            <td data-label="Score">
                 <div class="score-value">${candidate.atsScore || 0}%</div>
             </td>
-            <td>
+            <td data-label="Status">
                 <span class="badge ${eligibilityClass}">${candidate.eligibility || 'N/A'}</span>
             </td>
-            <td>
-                <button class="btn btn-secondary btn-sm view-details" data-index="${index}">View Details</button>
-                ${ (candidate.eligibility === 'Eligible' && candidate.email && candidate.email !== 'N/A') ? `<button class="btn btn-primary btn-sm send-email" data-index="${index}">Send Shortlist</button>` : '' }
+            <td data-label="Actions">
+                <div class="action-buttons">
+                    <button class="btn btn-secondary btn-sm view-details" data-index="${index}">View Details</button>
+                    ${ (candidate.eligibility === 'Eligible' && candidate.email && candidate.email !== 'N/A') ? `<button class="btn btn-primary btn-sm send-email" data-index="${index}">Send Shortlist</button>` : '' }
+                </div>
             </td>
         `;
         tableBody.appendChild(row);
     });
-    
-    // Note: We must re-add detail button listeners *after* populating the table.
-    // This is handled in applyFilters() and DOMContentLoaded()
 }
 
 function getEligibilityClass(eligibility) {
