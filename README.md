@@ -69,6 +69,3 @@ npm start
 
 👥 Team SkillSync
 Santhosh A S (Team Lead)
-S M Prajwal
-Vikas J P
-Praveen Kumar P
